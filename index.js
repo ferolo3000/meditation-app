@@ -28,11 +28,11 @@ function loadSong(song) {
     audio.src = `music/${song}.mp3`;
 
     if (song === "betterdays") {
-        bgVideo.src = 'images/water.mp4';
+        bgVideo.src = 'https://ferolobucket.s3.amazonaws.com/water.mp4';
     } else if (song === "meditation") {
-        bgVideo.src = 'images/jungle.mp4';
+        bgVideo.src = 'https://ferolobucket.s3.amazonaws.com/jungle.mp4';
     } else {
-        bgVideo.src = 'images/river.mp4';
+        bgVideo.src = 'https://ferolobucket.s3.amazonaws.com/river.mp4';
     }
 }
 
