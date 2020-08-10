@@ -38,19 +38,22 @@ function loadSong(song) {
 
 // Play song/video
 function playSong() {
+    musicContainer.classList.remove('pause')
     musicContainer.classList.add('play');
     playBtn.querySelector('i.fas').classList.remove('fa-play');
     playBtn.querySelector('i.fas').classList.add('fa-pause');
-    pointerDot.classList.add('pointer')
+    container.style.visibility = 'visible';
+    pointerDot.style.visibility = 'visible';
     audio.play();
 }
 
 // Pause song/video
 function pauseSong() {
     musicContainer.classList.remove('play');
+    musicContainer.classList.add('pause');
     playBtn.querySelector('i.fas').classList.add('fa-play');
     playBtn.querySelector('i.fas').classList.remove('fa-pause');
-    pointerDot.classList.remove('pointer')
+    container.style.visibility = 'hidden'
 
     audio.pause();
 }
@@ -66,9 +69,6 @@ function prevSong() {
     loadSong(songs[songIndex]);
 
     playSong();
-
-    breathAnimation();
-    setInterval(breathAnimation, totalTime);
 }
 
 // Next song
@@ -89,8 +89,6 @@ const totalTime = 7500;
 const breatheTime = (totalTime / 5) * 2;
 const holdTime = totalTime / 5;
 
-
-
 function breathAnimation() {
     text.innerText = 'Breathe In!';
     container.className = 'container grow';
@@ -105,11 +103,16 @@ function breathAnimation() {
     }, breatheTime);
 }
 
-// Event listeners
+// Play song
 playBtn.addEventListener('click', () => {
+    container.style.visibility = 'visible';
+    pointerDot.style.visibility = 'hidden';
+
     const isPlaying = musicContainer.classList.contains('play');
     if (isPlaying) {
         pauseSong();
+    } else if (musicContainer.classList.contains('pause')) {
+        playSong();
     } else {
         var timeleft = 3;
         var downloadTimer = setInterval(function () {
