@@ -39,13 +39,13 @@ body {
     z-index: -1;
 }
 
-.pointer {
+/*.pointer {
     background-color: #fff;
     border-radius: 50%;
     height: 20px;
     width: 20px;
     display: block;
-}
+}*/
 
 .pointer-container {
     position: absolute;
@@ -73,7 +73,7 @@ body {
 
 @keyframes grow {
     from {
-        transform: scale(1);
+        transform: scale(.7);
     }
 
     to {
@@ -91,7 +91,7 @@ body {
     }
 
     to {
-        transform: scale(1);
+        transform: scale(.7);
     }
 }
 

@@ -13,9 +13,9 @@ const nextBtn = document.getElementById('next');
 
 const audio = document.getElementById('audio');
 
-const totalTime = 7500;
-const breatheTime = (totalTime / 5) * 2;
-const holdTime = totalTime / 5;
+const totalTime = 13000;
+const breatheTime = 5000;
+const holdTime = 3000;
 
 var hold;
 var breathe;
