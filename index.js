@@ -10,7 +10,6 @@ const width = window.innerWidth;
 const playBtn = document.getElementById('play');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
-
 const audio = document.getElementById('audio');
 
 const totalTime = 13000;
