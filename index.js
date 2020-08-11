@@ -110,6 +110,8 @@ function nextSong() {
   container.classList.remove('grow');
   container.classList.remove('shrink');
   text.innerText = '';
+
+  counterSong();
 }
 
 // Breathing animation
@@ -168,7 +170,8 @@ prevBtn.addEventListener('click', () => {
 
   const isPlaying = musicContainer.classList.contains('play');
   if (isPlaying) {
-    stopSong();
+    prevSong();
+    counterSong();
   } else if (musicContainer.classList.contains('stop')) {
     playSong();
   } else {
@@ -183,7 +186,7 @@ nextBtn.addEventListener('click', () => {
 
   const isPlaying = musicContainer.classList.contains('play');
   if (isPlaying) {
-    stopSong();
+    nextSong();
   } else if (musicContainer.classList.contains('stop')) {
     playSong();
   } else {

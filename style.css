@@ -5,7 +5,6 @@
 }
 
 body {
-    /*background: #224941 url('./img/bg.jpg') no-repeat center center/cover;*/
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
@@ -98,7 +97,7 @@ body {
 
 .music-container {
     background-color: #fafafa;
-    opacity: 0.2;
+    opacity: 0.4;
     border-radius: 15px;
     box-shadow: 5px 5px 7px 1px rgba(0, 0, 0, 0.2);
     padding: 10px;
