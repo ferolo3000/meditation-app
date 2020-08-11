@@ -5,11 +5,10 @@ const bgVideo = document.getElementById('video-bg');
 const pointer = document.getElementById('pointer-bg');
 const pointerDot = document.getElementById('pointer-dot');
 const timer = document.getElementById('countdown');
+const runTime = document.getElementById('countdownTime');
 const width = window.innerWidth;
 
 const playBtn = document.getElementById('play');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
 const audio = document.getElementById('audio');
 
 const totalTime = 13000;
@@ -51,6 +50,7 @@ function playSong() {
   container.style.visibility = 'visible';
   pointerDot.style.visibility = 'visible';
   audio.play();
+  countdownMeditation();
 }
 
 // Stop song/video
@@ -63,26 +63,6 @@ function stopSong() {
 
   audio.pause();
   audio.currentTime = 0;
-  clearTimeout(hold);
-  clearTimeout(breathe);
-  clearInterval(breatheSetTime);
-  container.classList.remove('grow');
-  container.classList.remove('shrink');
-  text.innerText = '';
-}
-
-// Previous song
-function prevSong() {
-  songIndex--;
-
-  if (songIndex < 0) {
-    songIndex = songs.length - 1;
-  }
-
-  loadSong(songs[songIndex]);
-  playBtn.querySelector('i.fas').classList.remove('fa-play');
-  playBtn.querySelector('i.fas').classList.add('fa-stop');
-
   clearTimeout(hold);
   clearTimeout(breathe);
   clearInterval(breatheSetTime);
@@ -144,6 +124,23 @@ function counterSong() {
   }, 1000);
 }
 
+function countdownMeditation() {
+
+  var minute = 4;
+  var sec = 59;
+  setInterval(function () {
+    runTime.innerHTML = minute + " : " + sec;
+    sec--;
+    if (sec == 00) {
+      minute--;
+      sec = 60;
+      if (minute == 0) {
+        minute = 5;
+      }
+    }
+  }, 1000);
+}
+
 // Play song
 playBtn.addEventListener('click', () => {
   container.style.visibility = 'visible';
@@ -156,26 +153,7 @@ playBtn.addEventListener('click', () => {
     counterSong();
   } else {
     counterSong();
-  }
-});
 
-// Change song
-//prevBtn.addEventListener('click', prevSong);
-//nextBtn.addEventListener('click', nextSong);
-
-prevBtn.addEventListener('click', () => {
-  container.style.visibility = 'visible';
-  pointerDot.style.visibility = 'hidden';
-
-  const isPlaying = musicContainer.classList.contains('play');
-  if (isPlaying) {
-    prevSong();
-    counterSong();
-  } else if (musicContainer.classList.contains('stop')) {
-    playSong();
-  } else {
-    prevSong();
-    counterSong();
   }
 });
 
@@ -190,7 +168,8 @@ nextBtn.addEventListener('click', () => {
     playSong();
   } else {
     nextSong();
-    counterSong();
+    playSong();
+    breathAnimation();
   }
 });
 
