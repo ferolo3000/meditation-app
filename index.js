@@ -34,16 +34,6 @@ function loadSong(song) {
     } else {
       bgVideo.src = 'images/sun.mp4';
     }
-  } else {
-    bgVideo.style.visibility = 'hidden';
-    if (song === 'betterdays') {
-      document.body.style.background = 'url(images/lake.jpg) no-repeat center';
-    } else if (song === 'meditation') {
-      document.body.style.background = 'url(images/trees.jpg) no-repeat center';
-    } else {
-      document.body.style.background =
-        'url(images/forest.jpg) no-repeat center';
-    }
   }
 }
 
