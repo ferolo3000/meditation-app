@@ -81,6 +81,8 @@ function prevSong() {
   }
 
   loadSong(songs[songIndex]);
+  playBtn.querySelector('i.fas').classList.remove('fa-play');
+  playBtn.querySelector('i.fas').classList.add('fa-stop');
 
   clearTimeout(hold);
   clearTimeout(breathe);
@@ -99,6 +101,8 @@ function nextSong() {
   }
 
   loadSong(songs[songIndex]);
+  playBtn.querySelector('i.fas').classList.remove('fa-play');
+  playBtn.querySelector('i.fas').classList.add('fa-stop');
 
   clearTimeout(hold);
   clearTimeout(breathe);

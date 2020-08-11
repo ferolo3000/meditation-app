@@ -98,11 +98,15 @@ body {
 
 .music-container {
     background-color: #fafafa;
-    opacity: 0.5;
+    opacity: 0.2;
     border-radius: 15px;
     box-shadow: 5px 5px 7px 1px rgba(0, 0, 0, 0.2);
     padding: 10px;
     position: relative;
+}
+
+.music-container:hover {
+    opacity: 0.7;
 }
 
 .navigation {
