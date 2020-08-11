@@ -28,11 +28,11 @@ function loadSong(song) {
 
   if (width > 800) {
     if (song === 'betterdays') {
-      bgVideo.src = 'https://ferolobucket.s3.amazonaws.com/water.mp4';
+      bgVideo.src = 'images/jungle.mp4';
     } else if (song === 'meditation') {
-      bgVideo.src = 'https://ferolobucket.s3.amazonaws.com/jungle.mp4';
+      bgVideo.src = 'images/water.mp4';
     } else {
-      bgVideo.src = 'https://ferolobucket.s3.amazonaws.com/river.mp4';
+      bgVideo.src = 'images/sun.mp4';
     }
   } else {
     bgVideo.style.visibility = 'hidden';
@@ -70,7 +70,7 @@ function stopSong() {
   audio.currentTime = 0;
   clearTimeout(hold);
   clearTimeout(breathe);
-  clearInterval(test);
+  clearInterval(breatheSetTime);
   container.classList.remove('grow');
   container.classList.remove('shrink');
   text.innerText = '';
@@ -86,7 +86,12 @@ function prevSong() {
 
   loadSong(songs[songIndex]);
 
-  playSong();
+  clearTimeout(hold);
+  clearTimeout(breathe);
+  clearInterval(breatheSetTime);
+  container.classList.remove('grow');
+  container.classList.remove('shrink');
+  text.innerText = '';
 }
 
 // Next song
@@ -98,6 +103,13 @@ function nextSong() {
   }
 
   loadSong(songs[songIndex]);
+
+  clearTimeout(hold);
+  clearTimeout(breathe);
+  clearInterval(breatheSetTime);
+  container.classList.remove('grow');
+  container.classList.remove('shrink');
+  text.innerText = '';
 }
 
 // Breathing animation
@@ -122,7 +134,7 @@ function breathAnimation() {
   }, breatheTime);
 }
 
-var test;
+var breatheSetTime;
 function counterSong() {
   var timeleft = 3;
   var downloadTimer = setInterval(function () {
@@ -131,7 +143,7 @@ function counterSong() {
       document.getElementById('countdown').innerHTML = '';
       playSong();
       breathAnimation();
-      test = setInterval(breathAnimation, totalTime);
+      breatheSetTime = setInterval(breathAnimation, totalTime);
     } else {
       document.getElementById('countdown').innerHTML = timeleft;
     }
@@ -155,8 +167,23 @@ playBtn.addEventListener('click', () => {
 });
 
 // Change song
-prevBtn.addEventListener('click', prevSong);
-nextBtn.addEventListener('click', nextSong);
+//prevBtn.addEventListener('click', prevSong);
+//nextBtn.addEventListener('click', nextSong);
+
+prevBtn.addEventListener('click', () => {
+  container.style.visibility = 'visible';
+  pointerDot.style.visibility = 'hidden';
+
+  const isPlaying = musicContainer.classList.contains('play');
+  if (isPlaying) {
+    stopSong();
+  } else if (musicContainer.classList.contains('stop')) {
+    playSong();
+  } else {
+    prevSong();
+    counterSong();
+  }
+});
 
 nextBtn.addEventListener('click', () => {
   container.style.visibility = 'visible';
