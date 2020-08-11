@@ -13,8 +13,16 @@ const nextBtn = document.getElementById('next');
 
 const audio = document.getElementById('audio');
 
+const totalTime = 7500;
+const breatheTime = (totalTime / 5) * 2;
+const holdTime = totalTime / 5;
+
+var hold;
+var breathe;
+var breatheSetTime;
+
 // Song titles
-const songs = ['betterdays', 'meditation', 'slowmotion'];
+const songs = ['betterdays', 'calm', 'slowmotion'];
 
 // Keep track of song
 let songIndex = 2;
@@ -26,14 +34,12 @@ loadSong(songs[songIndex]);
 function loadSong(song) {
   audio.src = `music/${song}.mp3`;
 
-  if (width > 800) {
-    if (song === 'betterdays') {
-      bgVideo.src = 'images/jungle.mp4';
-    } else if (song === 'meditation') {
-      bgVideo.src = 'images/water.mp4';
-    } else {
-      bgVideo.src = 'images/sun.mp4';
-    }
+  if (song === 'betterdays') {
+    bgVideo.src = 'images/jungle.mp4';
+  } else if (song === 'calm') {
+    bgVideo.src = 'images/water.mp4';
+  } else {
+    bgVideo.src = 'images/sun.mp4';
   }
 }
 
@@ -103,13 +109,6 @@ function nextSong() {
 }
 
 // Breathing animation
-const totalTime = 7500;
-const breatheTime = (totalTime / 5) * 2;
-const holdTime = totalTime / 5;
-
-var hold;
-var breathe;
-
 function breathAnimation() {
   text.innerText = 'Breathe In!';
   container.className = 'container grow';
@@ -124,7 +123,6 @@ function breathAnimation() {
   }, breatheTime);
 }
 
-var breatheSetTime;
 function counterSong() {
   var timeleft = 3;
   var downloadTimer = setInterval(function () {
