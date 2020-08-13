@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
-  <title>Meditation-App</title>
+  <title>Meditapp</title>
 </head>
 
 <!--Music from: https://www.bensound.com & https://mixkit.co/
@@ -21,15 +21,24 @@ Videos from: https://mixkit.co/-->
   </video>
 
   <div class="music-container" id="music-container">
-    <audio src="music/betterdays.mp3" id="audio"></audio>
+    <audio src="music/slowmotion.mp3" id="audio"></audio>
 
     <div class="navigation">
+      <button id="prev" class="action-btn">
+        <i class="fas fa-backward"></i>
+      </button>
       <button id="play" class="action-btn action-btn-big">
         <i class="fas fa-play"></i>
       </button>
-      <select class="select-css id=" setTimer" <option selected disabled>Time</option>
-        <option value="5">5 min</option>
+      <button id="next" class="action-btn">
+        <i class="fas fa-forward"></i>
+      </button>
+      <select class="select-css" id="select-time">
+        <option value="time" disabled selected>Time</option>
+        <option value="1">5 min</option>
         <option value="10">10 min</option>
+        <option value="15">15 min</option>
+        <option value="20">20 min</option>
       </select>
     </div>
     <div id="countdownTime"></div>
@@ -39,10 +48,6 @@ Videos from: https://mixkit.co/-->
     <div class="circle"></div>
     <h1 id="countdown"></h1>
     <p id="text"></p>
-
-    <div id="pointer-bg" class="pointer-container">
-      <span id="pointer-dot" class="pointer"></span>
-    </div>
 
     <div class="gradient-circle"></div>
   </div>

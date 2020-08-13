@@ -2,13 +2,15 @@ const container = document.getElementById('container');
 const musicContainer = document.getElementById('music-container');
 const text = document.getElementById('text');
 const bgVideo = document.getElementById('video-bg');
-const pointer = document.getElementById('pointer-bg');
-const pointerDot = document.getElementById('pointer-dot');
+const circleContent = document.getElementById('circleContent-bg');
+
 const timer = document.getElementById('countdown');
-const runTime = document.getElementById('countdownTime');
-const width = window.innerWidth;
+const appTimeLeft = document.getElementById('countdownTime');
+var timeContainer = document.getElementById('select-time');
 
 const playBtn = document.getElementById('play');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
 const audio = document.getElementById('audio');
 
 const totalTime = 13000;
@@ -18,12 +20,14 @@ const holdTime = 3000;
 var hold;
 var breathe;
 var breatheSetTime;
+var myTime;
+var setTimeApp;
 
 // Song titles
-const songs = ['betterdays', 'calm', 'slowmotion'];
+const songs = ['betterdays', 'calm', 'flute', 'slowmotion'];
 
 // Keep track of song
-let songIndex = 2;
+let songIndex = 3;
 
 // Initially load song details into DOM
 loadSong(songs[songIndex]);
@@ -36,6 +40,8 @@ function loadSong(song) {
     bgVideo.src = 'images/jungle.mp4';
   } else if (song === 'calm') {
     bgVideo.src = 'images/water.mp4';
+  } else if (song === 'flute') {
+    bgVideo.src = 'images/mountain.mp4';
   } else {
     bgVideo.src = 'images/sun.mp4';
   }
@@ -48,9 +54,13 @@ function playSong() {
   playBtn.querySelector('i.fas').classList.remove('fa-play');
   playBtn.querySelector('i.fas').classList.add('fa-stop');
   container.style.visibility = 'visible';
-  pointerDot.style.visibility = 'visible';
+  prevBtn.style.display = 'none';
+  nextBtn.style.display = 'none';
+  timeContainer.style.display = 'none';
+
   audio.play();
-  countdownMeditation();
+
+  console.log(setTimeApp);
 }
 
 // Stop song/video
@@ -69,28 +79,23 @@ function stopSong() {
   container.classList.remove('grow');
   container.classList.remove('shrink');
   text.innerText = '';
+  clearTimeout(myTime);
+  appTimeLeft.style.visibility = 'hidden';
+  prevBtn.style.display = 'flex';
+  nextBtn.style.display = 'flex';
+  timeContainer.style.display = 'flex';
+  appTimeLeft.innerText = '0:00';
 }
 
 // Next song
 function nextSong() {
-  songIndex++;
+  songIndex--;
 
-  if (songIndex > songs.length - 1) {
-    songIndex = 0;
+  if (songIndex < 0) {
+    songIndex = songs.length - 1;
   }
-
   loadSong(songs[songIndex]);
-  playBtn.querySelector('i.fas').classList.remove('fa-play');
-  playBtn.querySelector('i.fas').classList.add('fa-stop');
-
-  clearTimeout(hold);
-  clearTimeout(breathe);
-  clearInterval(breatheSetTime);
-  container.classList.remove('grow');
-  container.classList.remove('shrink');
-  text.innerText = '';
-
-  counterSong();
+  playSong();
 }
 
 // Breathing animation
@@ -108,35 +113,54 @@ function breathAnimation() {
   }, breatheTime);
 }
 
-function counterSong() {
-  var timeleft = 3;
-  var downloadTimer = setInterval(function () {
-    if (timeleft <= 0) {
-      clearInterval(downloadTimer);
-      document.getElementById('countdown').innerHTML = '';
-      playSong();
-      breathAnimation();
-      breatheSetTime = setInterval(breathAnimation, totalTime);
-    } else {
-      document.getElementById('countdown').innerHTML = timeleft;
-    }
-    timeleft -= 1;
-  }, 1000);
+// Initialize App
+function initApp() {
+  setTimeApp = timeContainer.value;
+  if (setTimeApp === 'time') {
+    stopSong();
+    alert('Please, select a time.');
+  } else {
+    var timeleft = 3;
+    var downloadTimer = setInterval(function () {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer);
+        document.getElementById('countdown').innerHTML = '';
+        appTimeLeft.style.visibility = 'visible';
+        countdownMeditation(setTimeApp);
+        playSong();
+        breathAnimation();
+        breatheSetTime = setInterval(breathAnimation, totalTime);
+      } else {
+        document.getElementById('countdown').innerHTML = timeleft;
+      }
+      timeleft -= 1;
+    }, 1000);
+  }
 }
 
-function countdownMeditation() {
-
-  var minute = 4;
+// Countdown Time for Meditation
+function countdownMeditation(min) {
+  var minInit = min - 1;
+  var minute = minInit;
   var sec = 59;
-  setInterval(function () {
-    runTime.innerHTML = minute + " : " + sec;
+
+  myTime = setInterval(function () {
+    appTimeLeft.innerHTML =
+      minute.toString() + ':' + (sec < 10 ? '0' : '') + sec.toString();
     sec--;
     if (sec == 00) {
       minute--;
-      sec = 60;
+      sec = 59;
       if (minute == 0) {
-        minute = 5;
+        minute = minInit;
       }
+    }
+    if (minute == '0' && sec == '01') {
+      clearTimeout(myTime);
+      stopSong();
+      appTimeLeft.style.visibility = 'hidden';
+      appTimeLeft.innerText = '0:00';
+      alert('Time is up.\n' + '  "Quiet the mind, and the soul will speak."');
     }
   }, 1000);
 }
@@ -144,33 +168,34 @@ function countdownMeditation() {
 // Play song
 playBtn.addEventListener('click', () => {
   container.style.visibility = 'visible';
-  pointerDot.style.visibility = 'hidden';
-
   const isPlaying = musicContainer.classList.contains('play');
+
   if (isPlaying) {
     stopSong();
   } else if (musicContainer.classList.contains('stop')) {
-    counterSong();
+    initApp();
   } else {
-    counterSong();
-
+    initApp();
   }
 });
 
+// Next song
 nextBtn.addEventListener('click', () => {
-  container.style.visibility = 'visible';
-  pointerDot.style.visibility = 'hidden';
+  songIndex++;
 
-  const isPlaying = musicContainer.classList.contains('play');
-  if (isPlaying) {
-    nextSong();
-  } else if (musicContainer.classList.contains('stop')) {
-    playSong();
-  } else {
-    nextSong();
-    playSong();
-    breathAnimation();
+  if (songIndex > songs.length - 1) {
+    songIndex = 0;
   }
+  loadSong(songs[songIndex]);
+});
+
+prevBtn.addEventListener('click', () => {
+  songIndex--;
+
+  if (songIndex < 0) {
+    songIndex = songs.length - 1;
+  }
+  loadSong(songs[songIndex]);
 });
 
 // Song ends
