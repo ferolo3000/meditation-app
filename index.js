@@ -8,6 +8,11 @@ const timer = document.getElementById('countdown');
 const appTimeLeft = document.getElementById('countdownTime');
 var timeContainer = document.getElementById('select-time');
 
+var modal = document.querySelector('.modal');
+var quoteText = document.getElementById('quote');
+var authorText = document.getElementById('author');
+var closeButton = document.querySelector('.close-button');
+
 const playBtn = document.getElementById('play');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
@@ -25,6 +30,33 @@ var setTimeApp;
 
 // Song titles
 const songs = ['betterdays', 'calm', 'flute', 'slowmotion'];
+
+// Quotes
+const quotes = [
+  {
+    quote: 'Quiet the mind, and the soul will speak.',
+    author: 'Ma Jaya Sati Bhagavati',
+  },
+  {
+    quote: 'Learn to be calm and you will always be happy.',
+    author: 'Paramahansa Yogananda',
+  },
+  {
+    quote: 'When you own your breath, nobody can steal your peace.',
+    author: 'Unknown',
+  },
+  {
+    quote: 'if the ocean can calm itself, so can you.',
+    author: 'Nayyirah Waheed',
+  },
+  {
+    quote:
+      'To understand the immeasurable, the mind must be extraordinarily quiet, still.',
+    author: 'Jiddu Krishnamurti',
+  },
+];
+
+var index = Math.floor(Math.random() * quotes.length);
 
 // Keep track of song
 let songIndex = 3;
@@ -59,32 +91,30 @@ function playSong() {
   timeContainer.style.display = 'none';
 
   audio.play();
-
-  console.log(setTimeApp);
 }
 
 // Stop song/video
 function stopSong() {
   musicContainer.classList.remove('play');
-  //musicContainer.classList.add('stop');
   playBtn.querySelector('i.fas').classList.add('fa-play');
   playBtn.querySelector('i.fas').classList.remove('fa-stop');
   container.style.visibility = 'hidden';
-
+  container.classList.remove('grow');
+  container.classList.remove('shrink');
   audio.pause();
   audio.currentTime = 0;
+
   clearTimeout(hold);
   clearTimeout(breathe);
   clearInterval(breatheSetTime);
-  container.classList.remove('grow');
-  container.classList.remove('shrink');
-  text.innerText = '';
   clearTimeout(myTime);
+
   appTimeLeft.style.visibility = 'hidden';
   prevBtn.style.display = 'flex';
   nextBtn.style.display = 'flex';
   timeContainer.style.display = 'flex';
   appTimeLeft.innerText = '0:00';
+  text.innerText = '';
 }
 
 // Next song
@@ -140,8 +170,7 @@ function initApp() {
 
 // Countdown Time for Meditation
 function countdownMeditation(min) {
-  var minInit = min - 1;
-  var minute = minInit;
+  var minute = min;
   var sec = 59;
 
   myTime = setInterval(function () {
@@ -151,16 +180,13 @@ function countdownMeditation(min) {
     if (sec == 00) {
       minute--;
       sec = 59;
-      if (minute == 0) {
-        minute = minInit;
+      if (minute < 0) {
+        clearTimeout(myTime);
+        stopSong();
+        appTimeLeft.style.visibility = 'hidden';
+        appTimeLeft.innerText = '0:00';
+        toggleModal();
       }
-    }
-    if (minute == '0' && sec == '01') {
-      clearTimeout(myTime);
-      stopSong();
-      appTimeLeft.style.visibility = 'hidden';
-      appTimeLeft.innerText = '0:00';
-      alert('Time is up.\n' + '  "Quiet the mind, and the soul will speak."');
     }
   }, 1000);
 }
@@ -200,3 +226,13 @@ prevBtn.addEventListener('click', () => {
 
 // Song ends
 audio.addEventListener('ended', nextSong);
+
+// Modal
+function toggleModal() {
+  modal.classList.toggle('show-modal');
+  quoteText.innerHTML = quotes[index].quote;
+  authorText.innerHTML = quotes[index].author;
+  console.log(index);
+}
+
+closeButton.addEventListener('click', toggleModal);
