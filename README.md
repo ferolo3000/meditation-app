@@ -6,4 +6,4 @@
 
 - Miniproject combining skills from the **Brad Traversy** course **20+ Web Projects With Vanilla JavaScript** on **Udemy**.
 
-[https://meditapp.netlify.app/](Link)
+[Link here](https://meditapp.netlify.app/)
