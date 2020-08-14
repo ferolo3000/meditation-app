@@ -32,8 +32,7 @@ var setTimeApp;
 const songs = ['betterdays', 'calm', 'flute', 'slowmotion'];
 
 // Quotes
-const quotes = [
-  {
+const quotes = [{
     quote: 'Quiet the mind, and the soul will speak.',
     author: 'Ma Jaya Sati Bhagavati',
   },
@@ -50,8 +49,7 @@ const quotes = [
     author: 'Nayyirah Waheed',
   },
   {
-    quote:
-      'To understand the immeasurable, the mind must be extraordinarily quiet, still.',
+    quote: 'To understand the immeasurable, the mind must be extraordinarily quiet, still.',
     author: 'Jiddu Krishnamurti',
   },
 ];
@@ -230,7 +228,7 @@ audio.addEventListener('ended', nextSong);
 // Modal
 function toggleModal() {
   modal.classList.toggle('show-modal');
-  quoteText.innerHTML = quotes[index].quote;
+  quoteText.innerHTML = '" ' + quotes[index].quote + ' "';
   authorText.innerHTML = quotes[index].author;
   console.log(index);
 }
