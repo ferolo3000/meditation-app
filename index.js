@@ -87,7 +87,8 @@ function playSong() {
   prevBtn.style.display = 'none';
   nextBtn.style.display = 'none';
   timeContainer.style.display = 'none';
-
+  
+  audio.load();
   audio.play();
 }
 
