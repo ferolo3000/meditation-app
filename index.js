@@ -88,7 +88,7 @@ function playSong() {
   nextBtn.style.display = 'none';
   timeContainer.style.display = 'none';
   
-  audio.load();
+ // audio.load();
   audio.play();
 }
 
@@ -145,6 +145,9 @@ function breathAnimation() {
 // Initialize App
 function initApp() {
   setTimeApp = timeContainer.value;
+  audio.preload = 'auto';
+  audio.load();
+    
   if (setTimeApp === 'time') {
     stopSong();
     alert('Please, select a time.');
