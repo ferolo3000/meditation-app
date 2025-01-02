@@ -29,7 +29,7 @@ var myTime;
 var setTimeApp;
 
 // Song titles
-const songs = ['betterdays', 'calm', 'flute', 'slowmotion'];
+const songs = ['Breathe Deep', 'Inner Peace'];
 
 // Quotes
 const quotes = [{
