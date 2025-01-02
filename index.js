@@ -66,12 +66,10 @@ loadSong(songs[songIndex]);
 function loadSong(song) {
   audio.src = `music/${song}.mp3`;
 
-  if (song === 'betterdays') {
+  if (song === 'BreatheDeep') {
     bgVideo.src = 'images/jungle.mp4';
-  } else if (song === 'calm') {
+  } else if (song === 'InnerPeace') {
     bgVideo.src = 'images/water.mp4';
-  } else if (song === 'flute') {
-    bgVideo.src = 'images/mountain.mp4';
   } else {
     bgVideo.src = 'images/sun.mp4';
   }
