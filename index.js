@@ -29,7 +29,7 @@ var myTime;
 var setTimeApp;
 
 // Song titles
-const songs = ['BreatheDeep', 'InnerPeace'];
+const songs = ['BreatheDeep', 'InnerPeace', 'SereneJourney'];
 
 // Quotes
 const quotes = [{
@@ -67,9 +67,11 @@ function loadSong(song) {
   audio.src = `music/${song}.mp3`;
 
   if (song === 'BreatheDeep') {
-    bgVideo.src = 'images/jungle.mp4';
+    bgVideo.src = 'images/sun.mp4';
   } else if (song === 'InnerPeace') {
-    bgVideo.src = 'images/water.mp4';
+    bgVideo.src = 'images/mountain.mp4';
+  } else if (song === 'SereneJourney') {
+    bgVideo.src = 'images/jungle.mp4';
   } else {
     bgVideo.src = 'images/sun.mp4';
   }
@@ -86,8 +88,9 @@ function playSong() {
   nextBtn.style.display = 'none';
   timeContainer.style.display = 'none';
   
- // audio.load();
+  audio.load();
   audio.play();
+
 }
 
 // Stop song/video
@@ -140,6 +143,7 @@ function breathAnimation() {
   }, breatheTime);
 }
 
+
 // Initialize App
 function initApp() {
   setTimeApp = timeContainer.value;
@@ -177,7 +181,7 @@ function countdownMeditation(min) {
     appTimeLeft.innerHTML =
       minute.toString() + ':' + (sec < 10 ? '0' : '') + sec.toString();
     sec--;
-    if (sec == 00) {
+    if (sec == 0) {
       minute--;
       sec = 59;
       if (minute < 0) {
