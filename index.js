@@ -29,7 +29,7 @@ var myTime;
 var setTimeApp;
 
 // Song titles
-const songs = ['Breathe Deep', 'Inner Peace'];
+const songs = ['BreatheDeep', 'InnerPeace'];
 
 // Quotes
 const quotes = [{
@@ -57,7 +57,7 @@ const quotes = [{
 var index = Math.floor(Math.random() * quotes.length);
 
 // Keep track of song
-let songIndex = 3;
+let songIndex = 2;
 
 // Initially load song details into DOM
 loadSong(songs[songIndex]);
